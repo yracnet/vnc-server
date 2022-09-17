@@ -18,8 +18,12 @@ Copy the websockify/websockify.js to src/ directory and split content
 
 ## Run
 
+### Terminal
+
 > node .\main.js 3000
 
-## Open
+### Browser
 
-> http://localhost:3000/?path=vnc:localhost:5901&password=vncpassword
+> http://localhost:3000/?path=vnc:vncserver:5901&password=vncpassword
+
+path=vnc:[vnc-host]:[vnc-port]
