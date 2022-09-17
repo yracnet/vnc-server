@@ -8,13 +8,18 @@ Is a simple compilation based on websockify-js (SW) and noVNC (UI) for vnc-lite 
 
 ## Repositories:
 
-- https://github.com/novnc/noVNC
-  Copy the html and js client to public
-- https://github.com/novnc/websockify-js
-  Copy the websockify/websockify.js to src/ directory and split content
+> https://github.com/novnc/noVNC
+
+Copy the html and js client to public
+
+> https://github.com/novnc/websockify-js
+
+Copy the websockify/websockify.js to src/ directory and split content
 
 ## Run
 
-```
-node .\main.js --web public 3000
-```
+> node .\main.js 3000
+
+## Open
+
+> http://localhost:3000/?path=vnc:localhost:5901&password=vncpassword

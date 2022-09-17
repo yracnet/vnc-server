@@ -2,15 +2,13 @@ var argv = require("optimist").argv;
 var { log, decodeBuffer } = require("./util");
 var net = require("net");
 var fs = require("fs");
-var target_host = "localhost";
-var target_port = "5901";
 
 // Handle new WebSocket client
 const new_client = function (client, req) {
   var clientAddr = client._socket.remoteAddress;
   var start_time = new Date().getTime();
-
-  log("URL: ", req ? req.url : client.upgradeReq.url);
+  var TARGET = req ? req.url : client.upgradeReq.url;
+  log("TARGET: ", TARGET);
   log("WebSocket connection");
   log(
     "Version " + client.protocolVersion + ", subprotocol: " + client.protocol
@@ -25,8 +23,17 @@ const new_client = function (client, req) {
     var rs = null;
   }
 
+  var target_host = "localhost";
+  var target_port = "5901";
+
+  if (TARGET.startsWith("/vnc:")) {
+    let [_, host, port] = TARGET.split(":");
+    target_host = host;
+    target_port = port;
+  }
+
   var target = net.createConnection(target_port, target_host, function () {
-    log("connected to target");
+    log("connected to target to", target_host, target_port);
   });
   target.on("data", function (data) {
     //log("sending message: " + data);

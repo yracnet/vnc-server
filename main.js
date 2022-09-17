@@ -23,7 +23,8 @@ var source_port;
 
 // parse source and target arguments into parts
 try {
-  let source_arg = argv._[0].toString();
+  let source_arg = argv._[0];
+  source_arg = source_arg ? source_arg.toString() : "3000";
 
   var idx;
   idx = source_arg.indexOf(":");
@@ -40,16 +41,13 @@ try {
   }
 } catch (e) {
   console.error(
-    "websockify.js [--web web_dir] [--cert cert.pem [--key key.pem]] [source_addr:]source_port"
+    "websockify.js [--cert cert.pem [--key key.pem]] [source_addr:]source_port"
   );
   process.exit(2);
 }
 
 console.log("WebSocket settings: ");
 console.log("    - proxying from " + source_host + ":" + source_port);
-if (argv.web) {
-  console.log("    - Web server active. Serving: " + argv.web);
-}
 
 if (argv.cert) {
   argv.key = argv.key || argv.cert;

@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-
-var argv = require("optimist").argv;
 var url = require("url");
 var path = require("path");
 var fs = require("fs");
@@ -13,15 +11,15 @@ const http_error = function (response, code, msg) {
   response.end();
   return;
 };
-
+const publicDir = "public";
 // Process an HTTP static file request
 const http_request = function (request, response) {
-  if (!argv.web) {
+  if (!publicDir) {
     return http_error(response, 403, "403 Permission Denied");
   }
 
   var uri = url.parse(request.url).pathname,
-    filename = path.join(argv.web, uri);
+    filename = path.join(publicDir, uri);
 
   fs.exists(filename, function (exists) {
     if (!exists) {
